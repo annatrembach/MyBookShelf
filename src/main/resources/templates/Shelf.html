@@ -1,14 +1,14 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${BookGallaryTitle}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <title th:text="${el.shelf_name}"></title>
 </head>
 <body>
 <ul>
     <li>
         <a href="/">HomePage</a>
-        <a href="/bookCatalog/addBook">Add Book</a>
+        <a href="/Book Catalog/Add Book">Add Book</a>
     </li>
 </ul>
 <div th:each="el : ${books}">

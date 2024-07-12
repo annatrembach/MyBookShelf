@@ -13,29 +13,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class BookCatalogController {
+public class ShelfController {
 
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping("/bookCatalog")
+    @GetMapping("/Shelf")
     public String bookCatalog(Model model) {
         this.bookRepository = bookRepository;
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
-        model.addAttribute("BookGallaryTitle", "My Books");
-        return "BookCatalog";
+        model.addAttribute("ShelfTitle", "My Books");
+        return "Shelf";
     }
 
-    @GetMapping("/bookCatalog/addBook")
+    @GetMapping("/Shelf/Add Book")
     public String bookAdd(Model model) {
         return "BookAdd";
     }
 
-    @PostMapping("/bookCatalog/addBook")
+    @PostMapping("/Shelf/Add Book")
     public String bookPostAdd(@RequestParam String book_name, @RequestParam String book_short_description,@RequestParam byte[] book_cover,@RequestParam Book_author book_author,@RequestParam Book_publisher book_publisher,@RequestParam Book_response book_response, Model model) {
         Book book = new Book(book_name, book_short_description, book_cover, book_author, book_publisher, book_response);
         bookRepository.save(book);
-        return "redirect:/bookCatalog";
+        return "redirect:/Shelf";
     }
 }

@@ -17,11 +17,11 @@ public class Book {
     public byte[] book_cover;
 
     @ManyToOne
-    @JoinColumn(name = "Id_book_author", nullable = false)
+    @JoinColumn(name = "Id_book_author")
     public Book_author book_author;
 
     @ManyToOne
-    @JoinColumn(name = "Id_book_publisher", nullable = false)
+    @JoinColumn(name = "Id_book_publisher")
     public Book_publisher book_publisher;
 
     @ManyToOne

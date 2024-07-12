@@ -13,13 +13,13 @@ public class MainController {
         return "HomePage";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/Login")
     public String login(Model model) {
         model.addAttribute("LoginTitle", "Login");
         return "Login";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/Registration")
     public String registration(Model model) {
         model.addAttribute("RegistrationTitle", "Registration");
         return "Registration";

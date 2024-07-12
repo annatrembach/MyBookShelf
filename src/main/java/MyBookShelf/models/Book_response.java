@@ -17,11 +17,11 @@ public class Book_response {
     public int book_response_emotional_factor;
     public int book_response_wow_factor;
 
-    @OneToMany(mappedBy = "response")
+    @OneToMany(mappedBy = "book_response")
     public List<Book> books;
 
     @ManyToOne
-    @JoinColumn(name = "Id_user", nullable = false)
+    @JoinColumn(name = "Id_user")
     public User user;
 
     public Long getId_book_response() {
