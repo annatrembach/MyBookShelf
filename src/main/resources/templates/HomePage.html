@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${HomeTitle}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+    <ul>
+        <li>
+            <a href="/registration">Registration</a>
+        </li>
+        <li>
+            <a href="/login">Login</a>
+        </li>
+    </ul>
+    <div th:each="el : ${books}">
+        <h3 th:text="${el:book_name}"></h3>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${BookGallaryTitle}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<ul>
+    <li>
+        <a href="/">HomePage</a>
+        <a href="/bookCatalog/addBook">Add Book</a>
+    </li>
+</ul>
+<div th:each="el : ${books}">
+    <h3 th:text="${el.book_name}"></h3>
+</div>
+</body>
+</html>

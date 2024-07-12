@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${LoginTitle}"></title>
+    <link rel="stylesheet" href="Main_page_style.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/breilga');
+        @import url('https://fonts.cdnfonts.com/css/calvino-grande-trial');
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <script>
+                /* Set the width of the sidebar to 250px (show it) */
+                function openNav() {
+                    document.getElementById("mySidepanel").style.width = "250px";
+                }
+      
+                /* Set the width of the sidebar to 0 (hide it) */
+                function closeNav() {
+                    document.getElementById("mySidepanel").style.width = "0";
+                }
+            </script>
+            <div id="mySidepanel" class="sidepanel">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+          </div>
+          
+          <button class="openbtn" onclick="openNav()">&#9776;</button>
+        </div>
+        <h1>My BookShelf</h1>
+        <div class="user-account">
+            <img class="header-img" src="./images/heroicons-user-basic.png">
+            <a href="">User</a>
+        </div>
+    </header>
+    <div class="div"></div>
+    
+    <footer class="footer"></footer>
+</body>
+</html>

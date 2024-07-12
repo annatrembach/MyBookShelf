@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${RegistrationTitle}"></title>
+    <link rel="stylesheet" href="Registration_style.css">
+</head>
+<body>
+<header class="header">
+    <br>
+    <h1>Registration</h1>
+    <ul>
+        <li>
+            <a href="/">Home Page</a>
+        </li>
+        <li>
+            <a href="/login">Login</a>
+        </li>
+    </ul>
+    <br>
+</header>
+<main class="main">
+    <form class="form">
+        <div class="form-row">
+            <div class="form-column-1">
+                <div class="form-column-1-img">
+                    <img src="./socialnetwork_sign-up_1.png" height="200px">
+                </div>
+                <br>
+                <label for="First Name">First Name</label><br>
+                <input tabindex="1" type="text" id="First Name" placeholder="first name"><br>
+                <br>
+                <label for="Last Name">Last Name</label><br>
+                <input tabindex="2" type="text" id="Last Name" placeholder="last name"><br>
+                <br>
+                <label for="Sex">Sex</label><br>
+                <div id="Sex">
+                    <input tabindex="3" type="radio" value="Female" name="Sex">
+                    <label>Female</label>
+                    <input tabindex="4" type="radio" value="Male" name="Sex">
+                    <label>Male</label>
+                </div>
+                <br>
+                <label for="Age">Age</label><br>
+                <input tabindex="5" type="number" id="Age"><br>
+                <br>
+                <label for="Date">Date of birth</label><br>
+                <input tabindex="6" type="date" id="Date"><br>
+            </div>
+            <div class="form-column-2">
+                <label>Country</label><br>
+                <select tabindex="7" name="" id="">
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="USA">USA</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Canada">Canada</option>
+                </select><br>
+                <br>
+                <label for="Telephone number">Telephone number</label><br>
+                <input tabindex="8" type="text" id="Telephone number" placeholder="+38(0XX)XXX-XX-XX"><br>
+                <br>
+                <label for="Social Network">Social Network</label><br>
+                <input tabindex="9" type="url" id="Social Network" placeholder="link"><br>
+                <br>
+                <label for="Email">Email</label><br>
+                <input tabindex="10" type="email" id="Email" placeholder="email"><br>
+                <br>
+                <label for="Password">Password</label><br>
+                <input tabindex="11" type="password" id="Password" placeholder="password"><br>
+                <br>
+                <br>
+                <label for="Term of use">Do you agree to the terms of use?</label>
+                <input tabindex="12" type="checkbox" id="Term of use"><br>
+            </div>
+        </div>
+        <div class="form-button-submit">
+            <button class="for-button" tabindex="13" type="submit">Sign Up</button>
+        </div>
+        <br>
+        <br>
+    </form>
+</main>
+</body>
+</html>

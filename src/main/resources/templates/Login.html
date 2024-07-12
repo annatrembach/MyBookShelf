@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${LoginTitle}"></title>
+    <link rel="stylesheet" href="Login_style.css">
+</head>
+<body>
+<header class="header">
+    <br>
+    <h1>Login</h1>
+    <ul>
+        <li>
+            <a href="/registration">Registration</a>
+        </li>
+        <li>
+            <a href="/">Home Page</a>
+        </li>
+    </ul>
+    <br>
+</header>
+<main  class="main">
+    <form class="form">
+        <br><br>
+        <img class="form-img" src="./socialnetwork_login_up_1.jpg" height="250px">
+        <br><br>
+        <label>Login</label><br>
+        <input tabindex="1" type="text" placeholder="login"><br>
+
+        <label>Password</label><br>
+        <input tabindex="2" type="text" placeholder="password"><br>
+
+        <button class="for-button" tabindex="3" type="submit">Log in</button>
+        <br><br>
+    </form>
+</main>
+</body>
+</html>
