@@ -9,19 +9,8 @@ public class MainController {
 
     @GetMapping("/")
     public String homepage(Model model) {
-        model.addAttribute("HomeTitle", "MyBookShelf");
-        return "HomePage";
+        model.addAttribute("MainTitle", "MyBookShelf");
+        return "MainPage";
     }
 
-    @GetMapping("/Login")
-    public String login(Model model) {
-        model.addAttribute("LoginTitle", "Login");
-        return "Login";
-    }
-
-    @GetMapping("/Registration")
-    public String registration(Model model) {
-        model.addAttribute("RegistrationTitle", "Registration");
-        return "Registration";
-    }
 }

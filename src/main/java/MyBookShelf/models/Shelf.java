@@ -53,4 +53,9 @@ public class Shelf {
 
     public Shelf() {
     }
+
+    public Shelf(String shelf_name, User user) {
+        this.shelf_name = shelf_name;
+        this.user = user;
+    }
 }

@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${LoginTitle}"></title>
-    <link rel="stylesheet" href="Login_style.css">
 </head>
 <body>
 <header class="header">
@@ -10,28 +9,28 @@
     <h1>Login</h1>
     <ul>
         <li>
-            <a href="/registration">Registration</a>
+            <a href="/">Main page</a>
         </li>
         <li>
-            <a href="/">Home Page</a>
+            <a href="/Registration">Registration</a>
         </li>
     </ul>
     <br>
 </header>
 <main  class="main">
-    <form class="form">
-        <br><br>
-        <img class="form-img" src="./socialnetwork_login_up_1.jpg" height="250px">
-        <br><br>
-        <label>Login</label><br>
-        <input tabindex="1" type="text" placeholder="login"><br>
-
+    <form th:action="@{/Login}" method="post" class="form">
+        <label>Email</label><br>
+        <input type="text" name="username" placeholder="login"><br>
         <label>Password</label><br>
-        <input tabindex="2" type="text" placeholder="password"><br>
-
+        <input type="password" name="password" placeholder="password"><br>
         <button class="for-button" tabindex="3" type="submit">Log in</button>
-        <br><br>
     </form>
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
 </main>
 </body>
 </html>

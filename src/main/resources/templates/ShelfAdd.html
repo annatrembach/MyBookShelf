@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Add Shelf</title>
+</head>
+<body>
+<ul>
+    <li>
+        <a href="/HomePage">Homepage</a>
+    </li>
+</ul>
+<div>
+    <h1>Add Shelf</h1>
+    <form action="/Shelves/ShelfAdd" method="post">
+        <input type="text" name="shelf_name" placeholder="Name of Shelf">
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

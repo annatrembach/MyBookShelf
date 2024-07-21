@@ -1,20 +1,17 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
+    <meta charset="UTF-8">
     <title th:text="${HomeTitle}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-    <body>
-    <ul>
-        <li>
-            <a href="/registration">Registration</a>
-        </li>
-        <li>
-            <a href="/login">Login</a>
-        </li>
-    </ul>
-    <div th:each="el : ${books}">
-        <h3 th:text="${el:book_name}"></h3>
-    </div>
-    </body>
+<body>
+    <h1 th:inline="text">Hello dear<span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+    <li>
+        <a href="/Shelves">My Shelves</a>
+    </li>
+    <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+    </form>
+</body>
 </html>
