@@ -1,19 +1,36 @@
 package MyBookShelf.models;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isActive;
 
 @Entity
 @Table(name = "Users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long Id_user;
-    public String user_name;
-    public String user_email;
-    public String user_password;
+    public String username;
+    public String email;
+    public String password;
+    public boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "Id_user"))
+    @Enumerated(EnumType.STRING)
+    public Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     public List<Shelf> shelves;
@@ -39,28 +56,20 @@ public class User {
         Id_user = id_user;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
-    }
-
-    public String getUser_password() {
-        return user_password;
-    }
-
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Shelf> getShelves() {
@@ -95,12 +104,67 @@ public class User {
         this.second_user = second_user;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public User() {
     }
 
-    public User(String user_name, String user_email, String user_password) {
-        this.user_name = user_name;
-        this.user_email = user_email;
-        this.user_password = user_password;
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
     }
 }
