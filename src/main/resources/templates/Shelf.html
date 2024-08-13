@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${el.shelf_name}"></title>
+    <title th:text="${shelfName}"></title>
 </head>
 <body>
 <ul>
@@ -13,7 +13,7 @@
         <a href="/Shelves">My Shelves</a>
     </li>
     <li>
-        <a href="/Shelf/Add Book">Add Book</a>
+        <a th:href="@{/Shelf/{shelfName}/AddBook(shelfName=${shelfName})}">Add Book</a>
     </li>
 </ul>
 <div th:each="el : ${books}">

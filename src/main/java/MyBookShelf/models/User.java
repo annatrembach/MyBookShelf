@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isActive;
-
 @Entity
 @Table(name = "Users")
 public class User implements UserDetails {

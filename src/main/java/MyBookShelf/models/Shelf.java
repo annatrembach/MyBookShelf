@@ -10,7 +10,7 @@ public class Shelf {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long Id_shelf;
-    public String shelf_name;
+    public String shelfName;
 
     @ManyToOne
     @JoinColumn(name = "Id_user")
@@ -30,11 +30,11 @@ public class Shelf {
         Id_shelf = id_shelf;
     }
 
-    public String getShelf_name() {
-        return shelf_name;
+    public String getShelfName() {
+        return shelfName;
     }
-    public void setShelf_name(String shelf_name) {
-        this.shelf_name = shelf_name;
+    public void setShelfName(String shelfName) {
+        this.shelfName = shelfName;
     }
 
     public User getUser() {
@@ -54,8 +54,8 @@ public class Shelf {
     public Shelf() {
     }
 
-    public Shelf(String shelf_name, User user) {
-        this.shelf_name = shelf_name;
+    public Shelf(String shelfName, User user) {
+        this.shelfName = shelfName;
         this.user = user;
     }
 }

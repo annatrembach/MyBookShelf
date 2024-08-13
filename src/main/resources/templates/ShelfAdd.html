@@ -12,9 +12,8 @@
 </ul>
 <div>
     <h1>Add Shelf</h1>
-    <form action="/Shelves/ShelfAdd" method="post">
+    <form th:action="@{/Shelves/ShelfAdd}" method="post">
         <input type="text" name="shelf_name" placeholder="Name of Shelf">
-
         <button type="submit">Save</button>
     </form>
 </div>

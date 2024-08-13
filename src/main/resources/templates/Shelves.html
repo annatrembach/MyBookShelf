@@ -15,7 +15,7 @@
 </ul>
 <div th:each="el : ${shelves}">
     <li>
-        <a href="/Shelf" th:text="${el.shelf_name}"></a>
+        <a href="/Shelf/{shelfName}" th:text="${el.shelfName}"></a>
     </li>
 </div>
 </body>
