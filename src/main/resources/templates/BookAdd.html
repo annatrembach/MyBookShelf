@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Add Book</title>
@@ -12,7 +12,7 @@
 </ul>
 <div>
     <h1>Add Book</h1>
-    <form action="/Shelf/Add Book" method="post">
+    <form th:action="/Shelf/${shelfName}/Add Book" method="post">
         <input type="text" name="book_name" placeholder="Name of Book">
         <textarea type="text" name="book_short_description" placeholder="Book`s short description"></textarea>
         <button type="submit">Save</button>

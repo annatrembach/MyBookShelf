@@ -29,11 +29,11 @@ public class ShelfController {
     public String allShelves(Model model) {
         Iterable<Shelf> shelves = shelfRepository.findAll();
         model.addAttribute("shelves", shelves);
-        model.addAttribute("shelf_name", "My Shelves");
         return "Shelves";
     }
     @GetMapping("/Shelves/ShelfAdd")
-    public String shelfAdd (Model model) { return "ShelfAdd"; }
+    public String shelfAdd (Model model) {
+        return "ShelfAdd"; }
 
     @PostMapping("/Shelves/ShelfAdd")
     public String shelfPostAdd(Shelf shelf){

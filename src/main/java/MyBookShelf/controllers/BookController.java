@@ -33,18 +33,18 @@ public class BookController {
         }*/
     }
     /*
-    @GetMapping("/Shelf/{shelf_name}")
+    @GetMapping("/Shelf/{shelfName}")
     public String shelfsBooks(Model model) {
         this.bookRepository = bookRepository;
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
-        model.addAttribute("book_name", "${el.shelf_name}");
+        model.addAttribute("book_name", "${el.shelfName}");
         return "Shelf";
     }
 */
     @GetMapping("/Shelf/{shelfName}/AddBook")
-    public String bookAdd(@PathVariable("shelfName") String shelf_name, Model model) {
-        model.addAttribute("shelfName", shelf_name);
+    public String bookAdd(@PathVariable("shelfName") String shelfName, Model model) {
+        model.addAttribute("shelfName", shelfName);
         return "BookAdd";
     }
     /*
