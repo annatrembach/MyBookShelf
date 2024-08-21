@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +17,8 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long Id_user;
+    @Column(name = "Id_user")
+    public Long userId;
     public String username;
     public String email;
     public String password;
@@ -34,7 +34,7 @@ public class User implements UserDetails {
     public List<Shelf> shelves;
 
     @OneToMany(mappedBy = "user")
-    public List<Book_response> responses;
+    public List<BookResponse> responses;
 
     @ManyToMany(mappedBy = "second_user")
     public List<User> first_user;
@@ -46,12 +46,15 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "Id_second_user"))
     public List<User> second_user;
 
-    public Long getId_user() {
-        return Id_user;
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Image userPicture;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId_user(Long id_user) {
-        Id_user = id_user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setUsername(String username) {
@@ -78,11 +81,11 @@ public class User implements UserDetails {
         this.shelves = shelves;
     }
 
-    public List<Book_response> getResponses() {
+    public List<BookResponse> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<Book_response> responses) {
+    public void setResponses(List<BookResponse> responses) {
         this.responses = responses;
     }
 
@@ -118,6 +121,15 @@ public class User implements UserDetails {
         this.active = active;
     }
 
+    public Image getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(Image userPicture) {
+        this.userPicture = userPicture;
+        userPicture.setUser(this);
+    }
+
     public User() {
     }
 
@@ -126,8 +138,6 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -165,4 +175,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
 }

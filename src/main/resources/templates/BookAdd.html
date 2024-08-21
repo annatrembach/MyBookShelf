@@ -12,9 +12,10 @@
 </ul>
 <div>
     <h1>Add Book</h1>
-    <form th:action="/Shelf/${shelfName}/Add Book" method="post">
-        <input type="text" name="book_name" placeholder="Name of Book">
-        <textarea type="text" name="book_short_description" placeholder="Book`s short description"></textarea>
+    <form th:action="@{/Shelf/{shelfName}/AddBook(shelfName=${shelfName})}" method="post" enctype="multipart/form-data">
+        <input type="text" name="bookName" placeholder="Name of Book">
+        <textarea type="text" name="bookShortDescription" placeholder="Book`s short description"></textarea>
+        <input type="file" name="bookCover"/>
         <button type="submit">Save</button>
     </form>
 </div>

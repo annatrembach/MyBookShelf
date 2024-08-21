@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${bookName}"></title>
+</head>
+<body>
+<h1 th:text="${book.bookName}">Назва книги</h1>
+
+<!-- Зображення обкладинки -->
+<div>
+    <img th:src="@{${book.bookCover}}" alt="Обкладинка книги" />
+</div>
+
+<!-- Інформація про книгу -->
+<p><strong>Автор:</strong> <span th:text="${book.bookAuthor.bookAuthorName}">Ім'я автора</span></p>
+<p><strong>Видавництво:</strong> <span th:text="${book.bookPublisher.bookPublisherName}">Назва видавництва</span></p>
+<p><strong>Короткий опис:</strong></p>
+<p th:text="${book.bookShortDescription}">Короткий опис книги</p>
+
+<!-- Відгуки про книгу -->
+<h3>Відгуки:</h3>
+<ul>
+    <li th:each="response : ${book.bookResponseList}">
+        <span th:text="${response.userName}">Ім'я користувача</span>: <span th:text="${response.reviewText}">Текст відгуку</span>
+    </li>
+</ul>
+
+<!-- Посилання для повернення на попередню сторінку -->
+<a href="/Shelf/{shelfName}">Назад</a>
+</body>
+</html>

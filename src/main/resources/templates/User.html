@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My profile</title>
+</head>
+<body>
+<h1>Профіль користувача</h1>
+
+<!-- Аватар користувача -->
+<div>
+    <img th:src="@{${user.userPicture}}" alt="Аватар користувача" />
+</div>
+
+<!-- Інформація про користувача -->
+<p><strong>Ім'я:</strong> <span th:text="${user.username}">Ім'я користувача</span></p>
+<p><strong>Email:</strong> <span th:text="${user.email}">Email користувача</span></p>
+<p><strong>Статус акаунту:</strong> <span th:text="${user.active ? 'Активний' : 'Неактивний'}">Статус акаунту</span></p>
+
+<!-- Книги на полицях користувача -->
+<h3>Книги користувача:</h3>
+<ul>
+    <li th:each="shelf : ${user.shelves}">
+        <span th:text="${shelf.shelfName}">Назва полиці</span>
+        <ul>
+            <li th:each="book : ${shelf.books}">
+                <a th:href="@{/Shelf/{shelfName}/Book/{bookId}(shelfName=${shelf.shelfName}, bookId=${book.bookId})}" th:text="${book.bookName}">Назва книги</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+</html>
