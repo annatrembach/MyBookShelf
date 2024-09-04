@@ -1,33 +1,46 @@
 package MyBookShelf.controllers;
 
-import MyBookShelf.models.Book;
 import MyBookShelf.models.Image;
-import MyBookShelf.repository.BookRepository;
-import MyBookShelf.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
+import MyBookShelf.models.ResponseData;
+import MyBookShelf.service.ImageService;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.ByteArrayInputStream;
-
-@Controller
+@RestController
 public class ImageController {
 
-    @Autowired
-    public ImageRepository imageRepository;
+    private final ImageService imageService;
 
-    @GetMapping("/images/{imageId}")
-    public ResponseEntity<?> getImageById(@PathVariable Long ImageId) {
-        Image image = imageRepository.findByImageId(ImageId).orElse(null);
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
+    }
+
+    @PostMapping("/upload")
+    public ResponseData uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        Image image = imageService.saveImage(file);
+        String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download/")
+                .path(image.getId_image())
+                .toUriString();
+
+        return new ResponseData(image.getImageName(),
+                downloadUrl,
+                file.getContentType(),
+                file.getSize());
+    }
+
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
+        Image image = imageService.getImage(fileId);
         return ResponseEntity.ok()
-                .header("fileName", image.getImageOriginalFileName())
-                .contentType(MediaType.valueOf(image.getImageContentType()))
-                .contentLength(image.getImageSize())
-                .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
+                .contentType(MediaType.parseMediaType(image.getImageType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"")
+                .body(new ByteArrayResource(image.getImageData()));
     }
 }

@@ -4,5 +4,5 @@ import MyBookShelf.models.Shelf;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ShelfRepository extends CrudRepository<Shelf, Long> {
-    Shelf findByShelfName(String shelfName);
+    Shelf findByshelfName(String shelfName);
 }

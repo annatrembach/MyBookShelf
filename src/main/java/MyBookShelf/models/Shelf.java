@@ -13,7 +13,7 @@ public class Shelf {
     public String shelfName;
 
     @ManyToOne
-    @JoinColumn(name = "Id_user")
+    @JoinColumn(name = "userId")
     public User user;
 
     @ManyToMany

@@ -1,14 +1,18 @@
 package MyBookShelf.controllers;
 
 import MyBookShelf.models.*;
+import MyBookShelf.repository.BookRepository;
 import MyBookShelf.repository.ShelfRepository;
 import MyBookShelf.service.ShelfService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 
 @Controller
 public class ShelfController {
@@ -29,8 +33,7 @@ public class ShelfController {
     }
     @GetMapping("/Shelves/ShelfAdd")
     public String shelfAdd (Model model) {
-        return "ShelfAdd";
-    }
+        return "ShelfAdd"; }
 
     @PostMapping("/Shelves/ShelfAdd")
     public String shelfPostAdd(Shelf shelf){

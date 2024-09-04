@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +18,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id_user")
+    @Column(name = "userId")
     public Long userId;
     public String username;
     public String email;
@@ -26,15 +27,15 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "Id_user"))
+            joinColumns = @JoinColumn(name = "userId"))
     @Enumerated(EnumType.STRING)
-    public Set<Role> roles = new HashSet<>();
+    public Set<MyBookShelf.models.Role> roles = new HashSet<MyBookShelf.models.Role>();
 
     @OneToMany(mappedBy = "user")
     public List<Shelf> shelves;
 
     @OneToMany(mappedBy = "user")
-    public List<BookResponse> responses;
+    public List<Book_response> responses;
 
     @ManyToMany(mappedBy = "second_user")
     public List<User> first_user;
@@ -81,11 +82,11 @@ public class User implements UserDetails {
         this.shelves = shelves;
     }
 
-    public List<BookResponse> getResponses() {
+    public List<Book_response> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<BookResponse> responses) {
+    public void setResponses(List<Book_response> responses) {
         this.responses = responses;
     }
 
@@ -105,11 +106,11 @@ public class User implements UserDetails {
         this.second_user = second_user;
     }
 
-    public Set<Role> getRoles() {
+    public Set<MyBookShelf.models.Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<MyBookShelf.models.Role> roles) {
         this.roles = roles;
     }
 
@@ -127,7 +128,6 @@ public class User implements UserDetails {
 
     public void setUserPicture(Image userPicture) {
         this.userPicture = userPicture;
-        userPicture.setUser(this);
     }
 
     public User() {
@@ -142,38 +142,31 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                 .collect(Collectors.toList());
     }
-
     @Override
     public String getPassword() {
         return password;
     }
-
     @Override
     public String getUsername() {
         return email;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
     @Override
     public boolean isEnabled() {
         return active;
     }
-
 }

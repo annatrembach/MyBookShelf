@@ -9,9 +9,4 @@ public enum Role implements GrantedAuthority {
     public String getAuthority() {
         return name();
     }
-
-
-    public String getRoleName() {
-        return name();
-    }
 }

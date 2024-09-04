@@ -1,21 +1,28 @@
 package MyBookShelf.controllers;
 
+import MyBookShelf.models.Image;
 import MyBookShelf.models.User;
 import MyBookShelf.repository.UserRepository;
+import MyBookShelf.service.ImageService;
+import MyBookShelf.service.ImageServiceImpl;
 import MyBookShelf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Controller
 public class UserController {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public ImageServiceImpl imageServiceImpl;
 
     @Autowired
     public UserRepository userRepository;
@@ -32,11 +39,14 @@ public class UserController {
     }
 
     @PostMapping("/Registration")
-    public String registrationPost(Model model, User user, @RequestParam("userPicture") MultipartFile file) throws IOException {
-        userService.addUser(user, file);
+    public String registrationPost(User user, @RequestParam("file") MultipartFile file) throws Exception {
+        if (!file.isEmpty()) {
+            Image image = imageServiceImpl.saveImage(file);
+            user.setUserPicture(image);
+        }
+        userService.addUser(user);
         return "redirect:/login";
     }
-
 
     @GetMapping("/HomePage/MyProfile/{userId}")
     public String userInfo(@PathVariable Long userId, Model model) {

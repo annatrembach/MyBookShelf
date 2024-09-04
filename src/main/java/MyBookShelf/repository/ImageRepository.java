@@ -1,9 +1,9 @@
 package MyBookShelf.repository;
 
 import MyBookShelf.models.Image;
-import MyBookShelf.models.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ImageRepository extends CrudRepository<Image, Long> {
-    Image findByImageId(Long imageId);
+@Repository
+public interface ImageRepository extends CrudRepository<Image, String> {
 }

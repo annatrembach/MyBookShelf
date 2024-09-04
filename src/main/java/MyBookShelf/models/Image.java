@@ -1,20 +1,21 @@
 package MyBookShelf.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id_image")
-    public Long imageId;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    public String Id_image;
+
     public String imageName;
-    public String imageOriginalFileName;
-    public Long imageSize;
-    public String imageContentType;
+    public String imageType;
+
     @Lob
-    public byte[] bytes;
+    public byte[] imageData;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userPicture")
     private User user;
@@ -22,66 +23,44 @@ public class Image {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookCover")
     private Book book;
 
-    public Long getImageId() {
-        return imageId;
+    public String getId_image() {
+        return Id_image;
     }
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+
+    public void setId_image(String id_image) {
+        Id_image = id_image;
     }
 
     public String getImageName() {
         return imageName;
     }
+
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
 
-    public String getImageOriginalFileName() {
-        return imageOriginalFileName;
-    }
-    public void setImageOriginalFileName(String imageOriginalFileName) {
-        this.imageOriginalFileName = imageOriginalFileName;
+    public String getImageType() {
+        return imageType;
     }
 
-    public Long getImageSize() {
-        return imageSize;
-    }
-    public void setImageSize(Long imageSize) {
-        this.imageSize = imageSize;
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
 
-    public String getImageContentType() {
-        return imageContentType;
-    }
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public byte[] getBytes() {
-        return bytes;
-    }
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-    public void setBook(Book book) {
-        this.book = book;
+    public Image(String imageName, String imageType, byte[] imageData) {
+        this.imageName = imageName;
+        this.imageType = imageType;
+        this.imageData = imageData;
     }
 
     public Image() {
-    }
-
-    public Image orElse(Image image) {
-        return image;
     }
 }
