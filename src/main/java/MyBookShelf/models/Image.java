@@ -18,10 +18,10 @@ public class Image {
     public byte[] imageData;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userPicture")
-    private User user;
+    public User user;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookCover")
-    private Book book;
+    public Book book;
 
     public String getId_image() {
         return Id_image;

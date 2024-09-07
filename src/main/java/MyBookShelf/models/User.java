@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
+import MyBookShelf.models.Role;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +18,6 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId")
     public Long userId;
     public String username;
     public String email;
@@ -29,7 +28,7 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userId"))
     @Enumerated(EnumType.STRING)
-    public Set<MyBookShelf.models.Role> roles = new HashSet<MyBookShelf.models.Role>();
+    public Set<MyBookShelf.models.Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     public List<Shelf> shelves;
@@ -47,8 +46,9 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "Id_second_user"))
     public List<User> second_user;
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Image userPicture;
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    public Image userPicture;
 
     public Long getUserId() {
         return userId;

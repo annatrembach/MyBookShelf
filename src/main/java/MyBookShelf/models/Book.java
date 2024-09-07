@@ -29,10 +29,11 @@ public class Book {
     public Book_response book_response;
 
     @ManyToMany(mappedBy = "books")
-    private List<Shelf> shelves;
+    public List<Shelf> shelves;
 
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Image bookCover;
+    @JoinColumn(name = "image_id")
+    public Image bookCover;
 
     public Long getId_book() {
         return Id_book;
