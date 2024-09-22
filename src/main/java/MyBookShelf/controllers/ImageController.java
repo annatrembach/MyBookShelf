@@ -2,6 +2,9 @@ package MyBookShelf.controllers;
 
 import MyBookShelf.models.Image;
 import MyBookShelf.models.ResponseData;
+import MyBookShelf.models.User;
+import MyBookShelf.repository.ImageRepository;
+import MyBookShelf.repository.UserRepository;
 import MyBookShelf.service.ImageService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -15,10 +18,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 public class ImageController {
 
-    private final ImageService imageService;
+    public ImageService imageService;
+    public ImageRepository imageRepository;
+    public UserRepository userRepository;
 
-    public ImageController(ImageService imageService) {
+    public ImageController(ImageService imageService, ImageRepository imageRepository, UserRepository userRepository) {
         this.imageService = imageService;
+        this.imageRepository = imageRepository;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/upload")
@@ -26,7 +33,7 @@ public class ImageController {
         Image image = imageService.saveImage(file);
         String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
-                .path(image.getId_image())
+                .path(image.getImageId())
                 .toUriString();
 
         return new ResponseData(image.getImageName(),
@@ -42,5 +49,19 @@ public class ImageController {
                 .contentType(MediaType.parseMediaType(image.getImageType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"")
                 .body(new ByteArrayResource(image.getImageData()));
+    }
+
+    @GetMapping("images/{userId}")
+    public ResponseEntity<Resource> getUserPicture(@PathVariable Long userId) throws Exception {
+        User user = userRepository.findByUserId(userId);
+        Image image = user.getUserPicture();
+        if (image != null && image.getImageData() != null) {
+            ByteArrayResource resource = new ByteArrayResource(image.getImageData());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(image.getImageType()))
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

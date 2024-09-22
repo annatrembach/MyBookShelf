@@ -1,6 +1,7 @@
 package MyBookShelf.models;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -121,6 +122,7 @@ public class User implements UserDetails {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 
     public Image getUserPicture() {
         return userPicture;

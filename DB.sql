@@ -86,7 +86,7 @@ ADD CONSTRAINT fk_Id_first_user
 FOREIGN KEY (Id_first_user) REFERENCES public."Users" (Id_user);
 
 ALTER TABLE public."Users_connection"
-ADD CONSTRAINT fk_Id_seconf_user
+ADD CONSTRAINT fk_Id_second_user
 FOREIGN KEY (Id_second_user) REFERENCES public."Users" (Id_user);
 
 --SHELF_BOOK

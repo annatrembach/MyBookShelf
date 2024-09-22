@@ -31,7 +31,7 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     public List<Shelf> shelves;
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     public Image bookCover;
 

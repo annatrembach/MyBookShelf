@@ -2,6 +2,7 @@ package MyBookShelf.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Image {
@@ -9,12 +10,14 @@ public class Image {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    public String Id_image;
+    @Column(name = "id_image")
+    public String imageId;
 
     public String imageName;
     public String imageType;
 
     @Lob
+    @Column(columnDefinition="TEXT")
     public byte[] imageData;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userPicture")
@@ -23,12 +26,12 @@ public class Image {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookCover")
     public Book book;
 
-    public String getId_image() {
-        return Id_image;
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setId_image(String id_image) {
-        Id_image = id_image;
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public String getImageName() {
