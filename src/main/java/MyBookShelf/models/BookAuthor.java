@@ -2,18 +2,17 @@ package MyBookShelf.models;
 
 import jakarta.persistence.*;
 
-import java.awt.*;
 import java.util.List;
 
 @Entity
-public class Book_author {
+public class BookAuthor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long Id_book_author;
     public String book_author_name;
 
-    @OneToMany(mappedBy = "book_author")
+    @OneToMany(mappedBy = "bookAuthor")
     public List<Book> books;
 
     public List<Book> getBooks() {
@@ -38,6 +37,6 @@ public class Book_author {
         this.book_author_name = book_author_name;
     }
 
-    public Book_author() {
+    public BookAuthor() {
     }
 }

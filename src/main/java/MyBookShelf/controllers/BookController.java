@@ -38,7 +38,7 @@ public class BookController {
         this.bookRepository = bookRepository;
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
-        model.addAttribute("book_name", "${el.shelfName}");
+        model.addAttribute("bookName", "${el.shelfName}");
         return "Shelf";
     }
 */
@@ -54,8 +54,8 @@ public class BookController {
     }
 */
     @PostMapping("/Shelf/{shelfName}/AddBook")
-    public String bookPostAdd(@PathVariable("shelfName") @RequestParam String book_name, @RequestParam String book_short_description, @RequestParam byte[] book_cover, @RequestParam Book_author book_author, @RequestParam Book_publisher book_publisher, @RequestParam Book_response book_response, Model model) {
-        Book book = new Book(book_name, book_short_description, book_cover, book_author, book_publisher, book_response);
+    public String bookPostAdd(@PathVariable("shelfName") @RequestParam String bookName, @RequestParam String bookShortDescription, @RequestParam Image bookCover, @RequestParam BookAuthor bookAuthor, @RequestParam BookPublisher bookPublisher, @RequestParam BookResponse bookResponse, Model model) {
+        Book book = new Book(bookName, bookShortDescription, bookCover, bookAuthor, bookPublisher, bookResponse);
         bookRepository.save(book);
         return "redirect:/Shelf/{shelfName}/";
     }

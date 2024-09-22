@@ -4,7 +4,6 @@ import MyBookShelf.models.Image;
 import MyBookShelf.models.User;
 import MyBookShelf.repository.UserRepository;
 import MyBookShelf.service.ImageService;
-import MyBookShelf.service.ImageServiceImpl;
 import MyBookShelf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +23,7 @@ public class UserController {
     public UserService userService;
 
     @Autowired
-    public ImageServiceImpl imageServiceImpl;
+    public ImageService imageService;
 
     @Autowired
     public UserRepository userRepository;
@@ -44,7 +42,7 @@ public class UserController {
     @PostMapping("/Registration")
     public String registrationPost(User user, @RequestParam("file") MultipartFile file) throws Exception {
         if (!file.isEmpty()) {
-            Image image = imageServiceImpl.saveImage(file);
+            Image image = imageService.uploadImageToFileSystem(file);
             user.setUserPicture(image);
         }
         userService.addUser(user);

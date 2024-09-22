@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Book_response {
+public class BookResponse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class Book_response {
     public int book_response_emotional_factor;
     public int book_response_wow_factor;
 
-    @OneToMany(mappedBy = "book_response")
+    @OneToMany(mappedBy = "bookResponse")
     public List<Book> books;
 
     @ManyToOne
@@ -87,6 +87,6 @@ public class Book_response {
         this.user = user;
     }
 
-    public Book_response() {
+    public BookResponse() {
     }
 }

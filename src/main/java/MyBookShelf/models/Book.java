@@ -8,80 +8,49 @@ import java.util.List;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long Id_book;
-    public String book_name;
-    public String book_short_description;
-
-    @Lob
-    public byte[] book_cover;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long bookId;
+    public String bookName;
+    public String bookShortDescription;
 
     @ManyToOne
-    @JoinColumn(name = "Id_book_author")
-    public Book_author book_author;
+    @JoinColumn(name = "bookAuthorId")
+    public BookAuthor bookAuthor;
 
     @ManyToOne
-    @JoinColumn(name = "Id_book_publisher")
-    public Book_publisher book_publisher;
+    @JoinColumn(name = "bookPublisherId")
+    public BookPublisher bookPublisher;
 
     @ManyToOne
-    @JoinColumn(name = "Id_book_response")
-    public Book_response book_response;
+    @JoinColumn(name = "bookResponseId")
+    public BookResponse bookResponse;
 
     @ManyToMany(mappedBy = "books")
-    public List<Shelf> shelves;
+    private List<Shelf> shelves;
 
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "imageId")
     public Image bookCover;
 
-    public Long getId_book() {
-        return Id_book;
+    public Long getBookId() {
+        return bookId;
     }
-    public void setId_book(Long id_book) {
-        Id_book = id_book;
-    }
-
-    public String getBook_name() {
-        return book_name;
-    }
-    public void setBook_name(String book_name) {
-        this.book_name = book_name;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
-    public String getBook_short_description() {
-        return book_short_description;
+    public String getBookName() {
+        return bookName;
     }
-    public void setBook_short_description(String book_short_description) {
-        this.book_short_description = book_short_description;
-    }
-
-    public byte[] getBook_cover() {
-        return book_cover;
-    }
-    public void setBook_cover(byte[] book_cover) {
-        this.book_cover = book_cover;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public Book_author getBook_author() {
-        return book_author;
+    public String getBookShortDescription() {
+        return bookShortDescription;
     }
-    public void setBook_author(Book_author book_author) {
-        this.book_author = book_author;
-    }
-
-    public Book_publisher getBook_publisher() {
-        return book_publisher;
-    }
-    public void setBook_publisher(Book_publisher book_publisher) {
-        this.book_publisher = book_publisher;
-    }
-
-    public Book_response getBook_response() {
-        return book_response;
-    }
-    public void setBook_response(Book_response book_response) {
-        this.book_response = book_response;
+    public void setBookShortDescription(String bookShortDescription) {
+        this.bookShortDescription = bookShortDescription;
     }
 
     public List<Shelf> getShelves() {
@@ -91,14 +60,42 @@ public class Book {
         this.shelves = shelves;
     }
 
+    public BookAuthor getBookAuthor() {
+        return bookAuthor;
+    }
+    public void setBookAuthor(BookAuthor bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+    public BookPublisher getBookPublisher() {
+        return bookPublisher;
+    }
+    public void setBookPublisher(BookPublisher bookPublisher) {
+        this.bookPublisher = bookPublisher;
+    }
+
+    public BookResponse getBookResponse() {
+        return bookResponse;
+    }
+    public void setBookResponse(BookResponse bookResponse) {
+        this.bookResponse = bookResponse;
+    }
+
+    public Image getBookCover() {
+        return bookCover;
+    }
+    public void setBookCover(Image bookCover) {
+        this.bookCover = bookCover;
+    }
+
     public Book() {}
 
-    public Book(String book_name, String book_short_description, byte[] book_cover, Book_author book_author, Book_publisher book_publisher, Book_response book_response) {
-        this.book_name = book_name;
-        this.book_short_description = book_short_description;
-        this.book_cover = book_cover;
-        this.book_author = book_author;
-        this.book_publisher = book_publisher;
-        this.book_response = book_response;
+    public Book(String bookName, String bookShortDescription, Image bookCover, BookAuthor bookAuthor, BookPublisher bookPublisher, BookResponse bookResponse) {
+        this.bookName = bookName;
+        this.bookShortDescription = bookShortDescription;
+        this.bookCover = bookCover;
+        this.bookAuthor = bookAuthor;
+        this.bookPublisher = bookPublisher;
+        this.bookResponse = bookResponse;
     }
 }

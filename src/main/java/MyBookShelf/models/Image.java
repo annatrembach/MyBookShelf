@@ -1,24 +1,20 @@
 package MyBookShelf.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import lombok.Builder;
+
 
 @Entity
+@Builder
 public class Image {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id_image")
-    public String imageId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long imageId;
 
     public String imageName;
     public String imageType;
-
-    @Lob
-    @Column(columnDefinition="TEXT")
-    public byte[] imageData;
+    public String imageFilePath;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userPicture")
     public User user;
@@ -26,18 +22,16 @@ public class Image {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookCover")
     public Book book;
 
-    public String getImageId() {
+    public Long getImageId() {
         return imageId;
     }
-
-    public void setImageId(String imageId) {
+    public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
 
     public String getImageName() {
         return imageName;
     }
-
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
@@ -45,24 +39,40 @@ public class Image {
     public String getImageType() {
         return imageType;
     }
-
     public void setImageType(String imageType) {
         this.imageType = imageType;
     }
 
-    public byte[] getImageData() {
-        return imageData;
+    public String getImageFilePath() {
+        return imageFilePath;
+    }
+    public void setImageFilePath(String imageFilePath) {
+        this.imageFilePath = imageFilePath;
     }
 
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Image(String imageName, String imageType, byte[] imageData) {
+    public Book getBook() {
+        return book;
+    }
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Image(Long imageId, String imageName, String imageType, String imageFilePath, User user, Book book) {
+        this.imageId = imageId;
         this.imageName = imageName;
         this.imageType = imageType;
-        this.imageData = imageData;
+        this.imageFilePath = imageFilePath;
+        this.user = user;
+        this.book = book;
     }
+
 
     public Image() {
     }

@@ -1,12 +1,11 @@
 package MyBookShelf.models;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import MyBookShelf.models.Role;
+import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long userId;
     public String username;
     public String email;
@@ -29,13 +28,13 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userId"))
     @Enumerated(EnumType.STRING)
-    public Set<MyBookShelf.models.Role> roles = new HashSet<>();
+    public Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     public List<Shelf> shelves;
 
     @OneToMany(mappedBy = "user")
-    public List<Book_response> responses;
+    public List<BookResponse> responses;
 
     @ManyToMany(mappedBy = "second_user")
     public List<User> first_user;
@@ -48,13 +47,12 @@ public class User implements UserDetails {
     public List<User> second_user;
 
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "imageId")
     public Image userPicture;
 
     public Long getUserId() {
         return userId;
     }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -62,7 +60,6 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getEmail() {
         return email;
     }
@@ -70,7 +67,6 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -78,23 +74,20 @@ public class User implements UserDetails {
     public List<Shelf> getShelves() {
         return shelves;
     }
-
     public void setShelves(List<Shelf> shelves) {
         this.shelves = shelves;
     }
 
-    public List<Book_response> getResponses() {
+    public List<BookResponse> getResponses() {
         return responses;
     }
-
-    public void setResponses(List<Book_response> responses) {
+    public void setResponses(List<BookResponse> responses) {
         this.responses = responses;
     }
 
     public List<User> getFirst_user() {
         return first_user;
     }
-
     public void setFirst_user(List<User> first_user) {
         this.first_user = first_user;
     }
@@ -102,32 +95,27 @@ public class User implements UserDetails {
     public List<User> getSecond_user() {
         return second_user;
     }
-
     public void setSecond_user(List<User> second_user) {
         this.second_user = second_user;
     }
 
-    public Set<MyBookShelf.models.Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
-
-    public void setRoles(Set<MyBookShelf.models.Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     public boolean isActive() {
         return active;
     }
-
     public void setActive(boolean active) {
         this.active = active;
     }
 
-
     public Image getUserPicture() {
         return userPicture;
     }
-
     public void setUserPicture(Image userPicture) {
         this.userPicture = userPicture;
     }
@@ -135,38 +123,46 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, Image userPicture) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.userPicture = userPicture;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
                 .collect(Collectors.toList());
     }
+
     @Override
     public String getPassword() {
         return password;
     }
+
     @Override
     public String getUsername() {
         return email;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return active;

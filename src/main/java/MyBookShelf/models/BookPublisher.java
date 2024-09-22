@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Book_publisher {
+public class BookPublisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long Id_book_publisher;
     public String book_publisher_name;
 
-    @OneToMany(mappedBy = "book_publisher")
+    @OneToMany(mappedBy = "bookPublisher")
     public List<Book> books;
 
     public Long getId_book_publisher() {
@@ -36,6 +36,6 @@ public class Book_publisher {
         this.books = books;
     }
 
-    public Book_publisher() {
+    public BookPublisher() {
     }
 }

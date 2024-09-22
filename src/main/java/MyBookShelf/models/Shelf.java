@@ -8,7 +8,7 @@ import java.util.List;
 public class Shelf {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long Id_shelf;
     public String shelfName;
 
@@ -20,7 +20,7 @@ public class Shelf {
     @JoinTable(
             name = "Shelf_Book",
             joinColumns = @JoinColumn(name = "Id_shelf"),
-            inverseJoinColumns = @JoinColumn(name = "Id_book"))
+            inverseJoinColumns = @JoinColumn(name = "bookId"))
     public List<Book> books;
 
     public Long getId_shelf() {
