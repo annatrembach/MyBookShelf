@@ -20,7 +20,6 @@ public class ShelfService {
     public ShelfRepository shelfRepository;
 
     public boolean addShelf(Shelf shelf) {
-        String shelfName = shelf.getShelfName();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = ((UserDetails) authentication.getPrincipal()).getUsername();
         User user = userRepository.findByEmail(email);

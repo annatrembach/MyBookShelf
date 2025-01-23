@@ -9,13 +9,13 @@ public class BookResponse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long Id_book_response;
-    public String book_response_text;
-    public int book_response_rating;
-    public int book_response_content_factor;
-    public int book_response_fun_factor;
-    public int book_response_emotional_factor;
-    public int book_response_wow_factor;
+    public Long bookResponseId;
+    public String bookResponseText;
+    public int bookResponseRating;
+    public int bookResponseContentFactor;
+    public int bookResponseFunFactor;
+    public int bookResponseEmotionalFactor;
+    public int bookResponseWowFactor;
 
     @OneToMany(mappedBy = "bookResponse")
     public List<Book> books;
@@ -24,18 +24,18 @@ public class BookResponse {
     @JoinColumn(name = "userId")
     public User user;
 
-    public Long getId_book_response() {
-        return Id_book_response;
+    public Long getBookResponseId() {
+        return bookResponseId;
     }
-    public void setId_book_response(Long id_book_response) {
-        Id_book_response = id_book_response;
+    public void setBookResponseId(Long bookResponseId) {
+        this.bookResponseId = bookResponseId;
     }
 
-    public String getBook_response_text() {
-        return book_response_text;
+    public String getBookResponseText() {
+        return bookResponseText;
     }
-    public void setBook_response_text(String book_response_text) {
-        this.book_response_text = book_response_text;
+    public void setBookResponseText(String bookResponseText) {
+        this.bookResponseText = bookResponseText;
     }
 
     public List<Book> getBooks() {
@@ -45,39 +45,39 @@ public class BookResponse {
         this.books = books;
     }
 
-    public int getBook_response_wow_factor() {
-        return book_response_wow_factor;
+    public int getBookResponseWowFactor() {
+        return bookResponseWowFactor;
     }
-    public void setBook_response_wow_factor(int book_response_wow_factor) {
-        this.book_response_wow_factor = book_response_wow_factor;
-    }
-
-    public int getBook_response_rating() {
-        return book_response_rating;
-    }
-    public void setBook_response_rating(int book_response_rating) {
-        this.book_response_rating = book_response_rating;
+    public void setBookResponseWowFactor(int bookResponseWowFactor) {
+        this.bookResponseWowFactor = bookResponseWowFactor;
     }
 
-    public int getBook_response_content_factor() {
-        return book_response_content_factor;
+    public int getBookResponseRating() {
+        return bookResponseRating;
     }
-    public void setBook_response_content_factor(int book_response_content_factor) {
-        this.book_response_content_factor = book_response_content_factor;
-    }
-
-    public int getBook_response_fun_factor() {
-        return book_response_fun_factor;
-    }
-    public void setBook_response_fun_factor(int book_response_fun_factor) {
-        this.book_response_fun_factor = book_response_fun_factor;
+    public void setBookResponseRating(int bookResponseRating) {
+        this.bookResponseRating = bookResponseRating;
     }
 
-    public int getBook_response_emotional_factor() {
-        return book_response_emotional_factor;
+    public int getBookResponseContentFactor() {
+        return bookResponseContentFactor;
     }
-    public void setBook_response_emotional_factor(int book_response_emotional_factor) {
-        this.book_response_emotional_factor = book_response_emotional_factor;
+    public void setBookResponseContentFactor(int bookResponseContentFactor) {
+        this.bookResponseContentFactor = bookResponseContentFactor;
+    }
+
+    public int getBookResponseFunFactor() {
+        return bookResponseFunFactor;
+    }
+    public void setBookResponseFunFactor(int bookResponseFunFactor) {
+        this.bookResponseFunFactor = bookResponseFunFactor;
+    }
+
+    public int getBookResponseEmotionalFactor() {
+        return bookResponseEmotionalFactor;
+    }
+    public void setBookResponseEmotionalFactor(int bookResponseEmotionalFactor) {
+        this.bookResponseEmotionalFactor = bookResponseEmotionalFactor;
     }
 
     public User getUser() {

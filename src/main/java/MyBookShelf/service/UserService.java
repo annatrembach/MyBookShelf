@@ -1,13 +1,11 @@
 package MyBookShelf.service;
 
-import MyBookShelf.models.Image;
 import MyBookShelf.models.Role;
 import MyBookShelf.models.User;
 import MyBookShelf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.Set;

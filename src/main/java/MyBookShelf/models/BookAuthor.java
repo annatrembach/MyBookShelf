@@ -9,8 +9,8 @@ public class BookAuthor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long Id_book_author;
-    public String book_author_name;
+    public Long bookAuthorId;
+    public String bookAuthorName;
 
     @OneToMany(mappedBy = "bookAuthor")
     public List<Book> books;
@@ -23,18 +23,18 @@ public class BookAuthor {
         this.books = books;
     }
 
-    public Long getId_book_author() {
-        return Id_book_author;
+    public Long getBookAuthorId() {
+        return bookAuthorId;
     }
-    public void setId_book_author(Long id_book_author) {
-        Id_book_author = id_book_author;
+    public void setBookAuthorId(Long bookAuthorId) {
+        this.bookAuthorId = bookAuthorId;
     }
 
-    public String getBook_author_name() {
-        return book_author_name;
+    public String getBookAuthorName() {
+        return bookAuthorName;
     }
-    public void setBook_author_name(String book_author_name) {
-        this.book_author_name = book_author_name;
+    public void setBookAuthorName(String bookAuthorName) {
+        this.bookAuthorName = bookAuthorName;
     }
 
     public BookAuthor() {

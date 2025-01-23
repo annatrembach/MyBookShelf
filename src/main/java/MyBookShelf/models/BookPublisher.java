@@ -9,24 +9,24 @@ public class BookPublisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long Id_book_publisher;
-    public String book_publisher_name;
+    public Long bookPublisherId;
+    public String bookPublisherName;
 
     @OneToMany(mappedBy = "bookPublisher")
     public List<Book> books;
 
-    public Long getId_book_publisher() {
-        return Id_book_publisher;
+    public Long getBookPublisherId() {
+        return bookPublisherId;
     }
-    public void setId_book_publisher(Long id_book_publisher) {
-        Id_book_publisher = id_book_publisher;
+    public void setBookPublisherId(Long bookPublisherId) {
+        this.bookPublisherId = bookPublisherId;
     }
 
-    public String getBook_publisher_name() {
-        return book_publisher_name;
+    public String getBookPublisherName() {
+        return bookPublisherName;
     }
-    public void setBook_publisher_name(String book_publisher_name) {
-        this.book_publisher_name = book_publisher_name;
+    public void setBookPublisherName(String bookPublisherName) {
+        this.bookPublisherName = bookPublisherName;
     }
 
     public List<Book> getBooks() {

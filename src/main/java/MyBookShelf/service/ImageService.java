@@ -39,7 +39,7 @@ public class ImageService {
     }
 
     public byte[] downloadImageFromFileSystem(Long userId) throws IOException {
-        Optional<User> user = userRepository.findByUserId(userId);
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getUserPicture() != null) {
             String imageFilePath = user.get().getUserPicture().getImageFilePath();
             return Files.readAllBytes(new File(imageFilePath).toPath());

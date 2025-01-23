@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        form {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-list {
+            position: absolute;
+            z-index: 100;
+            background: white;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-list option {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .search-list option:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{'/Shelf/' + ${shelfName} + '/AddBook'}" method="post" enctype="multipart/form-data">
+    <label for="bookName">Book Name:</label>
+    <input type="text" name="bookName" id="bookName" placeholder="Enter book name" required>
+
+    <label for="bookCover">Book Cover:</label>
+    <input type="file" name="bookCover" id="bookCover" required>
+
+    <label>Author:</label>
+    <div class="search-container">
+        <input type="text" id="bookAuthorInput" placeholder="Enter or search author">
+        <select name="bookAuthorId" id="bookAuthorList" class="search-list">
+            <option selected disabled>Select existing author</option>
+            <option th:each="author : ${bookAuthors}" th:value="${author.id}" th:text="${author.bookAuthorName}"></option>
+        </select>
+        <input type="hidden" name="bookAuthorName" id="newBookAuthorName">
+    </div>
+
+    <label>Publisher:</label>
+    <div class="search-container">
+        <input type="text" id="bookPublisherInput" placeholder="Enter or search publisher">
+        <select name="bookPublisherId" id="bookPublisherList" class="search-list">
+            <option selected disabled>Select existing publisher</option>
+            <option th:each="publisher : ${bookPublishers}" th:value="${publisher.id}" th:text="${publisher.bookPublisherName}"></option>
+        </select>
+        <input type="hidden" name="bookPublisherName" id="newBookPublisherName">
+    </div>
+
+    <label for="bookShortDescription">Short Description:</label>
+    <textarea name="bookShortDescription" id="bookShortDescription" placeholder="Enter a short description"></textarea>
+
+    <label for="bookResponse">Response:</label>
+    <input type="number" name="bookResponse" id="bookResponse" placeholder="Enter response">
+
+    <button type="submit">Save</button>
+</form>
+
+<script>
+    // Function to toggle and filter the dropdown list
+    function setupDynamicSearch(inputId, listId, hiddenInputId) {
+        const input = document.getElementById(inputId);
+        const list = document.getElementById(listId);
+        const hiddenInput = document.getElementById(hiddenInputId);
+
+        input.addEventListener("focus", () => {
+            list.style.display = "block";
+        });
+
+        input.addEventListener("keyup", () => {
+            const filter = input.value.toLowerCase();
+            let hasMatch = false;
+
+            for (const option of list.options) {
+                if (option.value && option.textContent.toLowerCase().includes(filter)) {
+                    option.style.display = "block";
+                    hasMatch = true;
+                } else {
+                    option.style.display = "none";
+                }
+            }
+
+            list.style.display = hasMatch ? "block" : "none";
+            hiddenInput.value = input.value;
+        });
+
+        list.addEventListener("change", () => {
+            input.value = list.selectedOptions[0].textContent;
+            list.style.display = "none";
+            hiddenInput.value = "";
+        });
+
+        input.addEventListener("blur", () => {
+            setTimeout(() => list.style.display = "none", 200);
+        });
+    }
+
+    setupDynamicSearch("bookAuthorInput", "bookAuthorList", "newBookAuthorName");
+    setupDynamicSearch("bookPublisherInput", "bookPublisherList", "newBookPublisherName");
+</script>
+</body>
+</html>
