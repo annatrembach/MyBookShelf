@@ -8,7 +8,7 @@ import java.util.List;
 public class BookResponse {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long bookResponseId;
     public String bookResponseText;
     public int bookResponseRating;

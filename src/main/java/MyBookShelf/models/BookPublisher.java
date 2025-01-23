@@ -8,7 +8,7 @@ import java.util.List;
 public class BookPublisher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long bookPublisherId;
     public String bookPublisherName;
 

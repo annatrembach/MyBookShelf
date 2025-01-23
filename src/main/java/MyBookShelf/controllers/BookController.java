@@ -106,7 +106,7 @@ public class BookController {
 
         bookRepository.save(book);
 
-        return "redirect:/Shelf/" + shelfName;
+        return "redirect:/Shelf/{shelfName}";
     }
 
 }

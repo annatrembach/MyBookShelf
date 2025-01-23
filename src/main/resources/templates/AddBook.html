@@ -86,7 +86,7 @@
         <input type="text" id="bookAuthorInput" placeholder="Enter or search author">
         <select name="bookAuthorId" id="bookAuthorList" class="search-list">
             <option selected disabled>Select existing author</option>
-            <option th:each="author : ${bookAuthors}" th:value="${author.id}" th:text="${author.bookAuthorName}"></option>
+            <option th:each="author : ${bookAuthors}" th:value="${author.bookAuthorId}" th:text="${author.bookAuthorName}"></option>
         </select>
         <input type="hidden" name="bookAuthorName" id="newBookAuthorName">
     </div>
@@ -96,7 +96,7 @@
         <input type="text" id="bookPublisherInput" placeholder="Enter or search publisher">
         <select name="bookPublisherId" id="bookPublisherList" class="search-list">
             <option selected disabled>Select existing publisher</option>
-            <option th:each="publisher : ${bookPublishers}" th:value="${publisher.id}" th:text="${publisher.bookPublisherName}"></option>
+            <option th:each="publisher : ${bookPublishers}" th:value="${publisher.bookPublisherId}" th:text="${publisher.bookPublisherName}"></option>
         </select>
         <input type="hidden" name="bookPublisherName" id="newBookPublisherName">
     </div>
@@ -111,46 +111,60 @@
 </form>
 
 <script>
-    // Function to toggle and filter the dropdown list
     function setupDynamicSearch(inputId, listId, hiddenInputId) {
-        const input = document.getElementById(inputId);
-        const list = document.getElementById(listId);
-        const hiddenInput = document.getElementById(hiddenInputId);
+    const input = document.getElementById(inputId);
+    const list = document.getElementById(listId);
+    const hiddenInput = document.getElementById(hiddenInputId);
 
-        input.addEventListener("focus", () => {
-            list.style.display = "block";
-        });
+    let isInteractingWithList = false;
 
-        input.addEventListener("keyup", () => {
-            const filter = input.value.toLowerCase();
-            let hasMatch = false;
+    input.addEventListener("focus", () => {
+        list.style.display = "block";
+    });
 
-            for (const option of list.options) {
-                if (option.value && option.textContent.toLowerCase().includes(filter)) {
-                    option.style.display = "block";
-                    hasMatch = true;
-                } else {
-                    option.style.display = "none";
-                }
+    input.addEventListener("keyup", () => {
+        const filter = input.value.toLowerCase();
+        let hasMatch = false;
+
+        for (const option of list.options) {
+            if (option.value && option.textContent.toLowerCase().includes(filter)) {
+                option.style.display = "block";
+                hasMatch = true;
+            } else {
+                option.style.display = "none";
             }
+        }
 
-            list.style.display = hasMatch ? "block" : "none";
-            hiddenInput.value = input.value;
-        });
+        list.style.display = hasMatch ? "block" : "none";
+        hiddenInput.value = input.value;
+    });
 
-        list.addEventListener("change", () => {
-            input.value = list.selectedOptions[0].textContent;
-            list.style.display = "none";
-            hiddenInput.value = "";
-        });
+    list.addEventListener("change", () => {
+        input.value = list.selectedOptions[0].textContent;
+        list.style.display = "none";
+        hiddenInput.value = "";
+    });
 
-        input.addEventListener("blur", () => {
-            setTimeout(() => list.style.display = "none", 200);
-        });
-    }
+    list.addEventListener("mouseover", () => {
+        isInteractingWithList = true;
+    });
 
-    setupDynamicSearch("bookAuthorInput", "bookAuthorList", "newBookAuthorName");
-    setupDynamicSearch("bookPublisherInput", "bookPublisherList", "newBookPublisherName");
+    list.addEventListener("mouseout", () => {
+        isInteractingWithList = false;
+    });
+
+    input.addEventListener("blur", () => {
+        setTimeout(() => {
+            if (!isInteractingWithList) {
+                list.style.display = "none";
+            }
+        }, 200);
+    });
+}
+
+setupDynamicSearch("bookAuthorInput", "bookAuthorList", "newBookAuthorName");
+setupDynamicSearch("bookPublisherInput", "bookPublisherList", "newBookPublisherName");
+
 </script>
 </body>
 </html>
