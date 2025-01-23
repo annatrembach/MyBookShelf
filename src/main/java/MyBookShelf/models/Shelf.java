@@ -16,11 +16,7 @@ public class Shelf {
     @JoinColumn(name = "userId")
     public User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "Shelf_Book",
-            joinColumns = @JoinColumn(name = "Id_shelf"),
-            inverseJoinColumns = @JoinColumn(name = "bookId"))
+    @OneToMany
     public List<Book> books;
 
     public Long getId_shelf() {

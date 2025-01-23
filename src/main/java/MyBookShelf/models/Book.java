@@ -25,8 +25,8 @@ public class Book {
     @JoinColumn(name = "bookResponseId")
     public BookResponse bookResponse;
 
-    @ManyToMany(mappedBy = "books")
-    private List<Shelf> shelves;
+    @ManyToOne
+    private Shelf shelf;
 
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "imageId")
@@ -53,11 +53,12 @@ public class Book {
         this.bookShortDescription = bookShortDescription;
     }
 
-    public List<Shelf> getShelves() {
-        return shelves;
+    public Shelf getShelf() {
+        return shelf;
     }
-    public void setShelves(List<Shelf> shelves) {
-        this.shelves = shelves;
+
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
     }
 
     public BookAuthor getBookAuthor() {

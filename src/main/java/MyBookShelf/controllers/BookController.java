@@ -38,17 +38,15 @@ public class BookController {
     @GetMapping("/Shelf/{shelfName}")
     public String shelfsBooks(@PathVariable("shelfName") String shelfName, Model model) {
         Shelf shelf = shelfRepository.findByShelfName(shelfName);
-        Iterable<Book> books = bookRepository.findByShelves(shelf);
+        Iterable<Book> books = bookRepository.findByShelf(shelf);
         model.addAttribute("shelfName", shelfName);
         model.addAttribute("books", books);
+        System.out.println(books);
         return "Shelf";
     }
 
     @GetMapping("/Shelf/{shelfName}/AddBook")
-    public String addBook(
-            @PathVariable String shelfName,
-            Model model) {
-
+    public String addBook(@PathVariable String shelfName, Model model) {
         Iterable<BookAuthor> bookAuthors = bookAuthorRepository.findAll();
         Iterable<BookPublisher> bookPublishers = bookPublisherRepository.findAll();
 
@@ -103,6 +101,7 @@ public class BookController {
         book.setBookAuthor(bookAuthor);
         book.setBookPublisher(bookPublisher);
         book.setBookShortDescription(bookShortDescription);
+        book.setShelf(shelfRepository.findByShelfName(shelfName));
 
         bookRepository.save(book);
 
